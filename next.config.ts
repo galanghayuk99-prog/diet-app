@@ -1,8 +1,12 @@
 import type { NextConfig } from "next";
 
+const basePath = process.env.PAGES_BASE_PATH;
+
 const nextConfig: NextConfig = {
-  /* config options here */
+  output: "export",
+  ...(basePath ? { basePath, assetPrefix: basePath } : {}),
   images: {
+    unoptimized: true,
     remotePatterns: [
       {
         protocol: "https",
@@ -10,8 +14,6 @@ const nextConfig: NextConfig = {
       },
     ],
   },
-  cacheComponents: true,
-  partialPrefetching: true,
   turbopack: {
     rules: {
       "*.css": {
